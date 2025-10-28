@@ -53,21 +53,13 @@ header#inici h1 {
 }
 
 /* Barra de navegació */
-nav.navbar {
+nav.navbar.sticky-top {
     background-color: #F6F6EE !important;
-    z-index: 1030; /* Assegura que la barra estigui per sobre d'altres elements */
-}
-
-/* Classe per quan la barra es fixa amb JavaScript */
-nav.navbar.fixed {
-    position: fixed;
+    position: -webkit-sticky;
+    position: sticky;
     top: 0;
     width: 100%;
-}
-
-/* Afegir marge superior al main per evitar solapament quan la barra es fixa */
-main {
-    transition: margin-top 0.3s ease; /* Transició suau per al marge */
+    z-index: 1020;
 }
 
 /* Caixes d'entrada del formulari */
@@ -168,4 +160,62 @@ footer a:hover {
 /* Altres ajustos generals */
 a {
     transition: color 0.3s ease;
+}
+
+/* Assegurar que el text justificat funcioni bé */
+.text-justify {
+    text-align: justify !important;
+}
+
+/* Ajust opcional per més espai entre columnes si gx-5 no és suficient */
+@media (min-width: 992px) { /* Només en pantalles grans (lg i superiors) */
+    #nosaltres .row.gx-5 {
+        --bs-gutter-x: 3rem; /* Augmenta l'espai a ~48px; pots canviar a 4rem, 5rem, etc. */
+    }
+}
+/* Estils per l'efecte parallax */
+.image-grid {
+    position: relative;
+    width: 100%;
+    height: 600px; /* Alçada per a l'efecte */
+    overflow: hidden;
+}
+
+.image_cont {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0; /* Inicialment invisibles */
+    z-index: 1; /* Assegura superposició correcta */
+}
+
+.parallax-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Manté la proporció */
+    border-radius: 0.25rem; /* Coherent amb el teu disseny */
+}
+
+/* Assegurar que el text justificat funcioni */
+.text-justify {
+    text-align: justify !important;
+}
+
+/* Mantenir l'espai horitzontal entre columnes */
+@media (min-width: 992px) {
+    #nosaltres .row.gx-5 {
+        --bs-gutter-x: 3rem;
+    }
+}
+
+/* Ajustos responsius per pantalles petites */
+@media (max-width: 767px) {
+    .image-grid {
+        height: 400px; /* Alçada reduïda per a mòbils */
+    }
+    .spacer {
+        height: 100vh; /* Ajustat per a mòbils */
+    }
 }
