@@ -1025,3 +1025,8 @@ footer .nom {
         padding-top: 1rem !important; /* Menys espai en mòbils petits per evitar que ocupi massa alçada. */
     }
 }
+
+:focus {
+    outline: 3px solid #D1DBA1; /* color visible */
+    outline-offset: 2px;
+}

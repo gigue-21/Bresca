@@ -380,4 +380,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+document.querySelectorAll('[data-bs-toggle="modal"]').forEach(img => {
+  img.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      img.click();
+    }
+  });
+});
+
+
 
