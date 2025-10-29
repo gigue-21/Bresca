@@ -18,9 +18,9 @@ html, body {
 
 /* Ajustar el padding de les seccions per la barra de navegació fixa */
 section {
-    padding-top: 60px; /* Espai base per totes les seccions */
-    scroll-margin-top: 60px;
-    margin-bottom: 2rem;
+    padding-top: 80px;     /* Augmentat de 60px a 80px */
+    scroll-margin-top: 80px;
+    margin-bottom: 3rem;   /* Augmentat de 2rem a 3rem */
     padding: 1rem 0.5rem;
 }
 @media (min-width: 576px) {
@@ -36,9 +36,10 @@ section:last-of-type {
 
 /* Ajust específic per la secció de galeria */
 section#galeria {
-    padding-top: 80px; /* Més espai específicament per la galeria */
+    padding-top: 100px;    /* Augmentat per més separació */
     position: relative;
-    margin-top: 40px; /* Espai addicional per separar de la secció anterior */
+    margin-top: 50px;
+    margin-bottom: 4rem;   /* Afegeix aquesta línia */
 }
 
 @media (max-width: 991.98px) {
@@ -708,7 +709,10 @@ footer .nom {
 
 #nosaltres {
   position: relative;
-  min-height: 300px; /* ajusta segons la mida que vulguis */
+  min-height: 300px;
+  overflow: hidden;        
+    padding-top: 100px;      
+    margin-top: 3rem;
 }
 
 #nosaltres .parallax-image {

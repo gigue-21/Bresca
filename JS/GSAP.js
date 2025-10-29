@@ -137,16 +137,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Desktop: animació parallax amb GSAP
             const tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: '#nosaltres',
-                    start: 'top top',
-                    end: '+=400%',
-                    pin: true,
-                    scrub: 0.5,
-                    markers: false,
-                    anticipatePin: 1,
-                    toggleActions: "play none none reverse"
-                }
+            scrollTrigger: {
+                trigger: '#nosaltres',
+                start: 'top top',
+                end: '+=200%',  // Canviat de 400% a 200%
+                pin: true,
+                scrub: 0.5,
+                markers: false,
+                anticipatePin: 1,
+                toggleActions: "play none none reverse",
+                invalidateOnRefresh: true  // Afegeix aquesta línia
+            }
             });
 
             gsap.set('.image_cont', { opacity: 0 });
@@ -386,6 +387,10 @@ document.querySelectorAll('[data-bs-toggle="modal"]').forEach(img => {
       img.click();
     }
   });
+      // Refresca GSAP quan tot està carregat (evita bugs de layout)
+    window.addEventListener('load', () => {
+        ScrollTrigger.refresh(true);
+    });
 });
 
 
