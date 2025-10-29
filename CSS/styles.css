@@ -1,5 +1,3 @@
-/* estils.css */
-
 /* Importar tipografia personalitzada per H1 */
 @font-face {
     font-family: 'CustomFont';
@@ -18,9 +16,9 @@ html, body {
 
 /* Ajustar el padding de les seccions per la barra de navegació fixa */
 section {
-    padding-top: 80px;     /* Augmentat de 60px a 80px */
-    scroll-margin-top: 80px;
-    margin-bottom: 3rem;   /* Augmentat de 2rem a 3rem */
+    padding-top: 60px; /* Espai base per totes les seccions */
+    scroll-margin-top: 60px;
+    margin-bottom: 2rem;
     padding: 1rem 0.5rem;
 }
 @media (min-width: 576px) {
@@ -36,10 +34,9 @@ section:last-of-type {
 
 /* Ajust específic per la secció de galeria */
 section#galeria {
-    padding-top: 100px;    /* Augmentat per més separació */
+    padding-top: 80px; /* Més espai específicament per la galeria */
     position: relative;
-    margin-top: 50px;
-    margin-bottom: 4rem;   /* Afegeix aquesta línia */
+    margin-top: 40px; /* Espai addicional per separar de la secció anterior */
 }
 
 @media (max-width: 991.98px) {
@@ -332,9 +329,8 @@ a {
 .image-grid {
     position: relative;
     width: 100%;
-    height: auto;           /* Permet que s'adapti al contingut */
-    min-height: 500px;      /* Manté una alçada mínima */
-    overflow: visible !important;  /* Permet que les imatges es vegin completes */
+    height: 600px; /* Alçada per a l'efecte */
+    overflow: hidden;
 }
 
 .image_cont {
@@ -710,10 +706,7 @@ footer .nom {
 
 #nosaltres {
   position: relative;
-  min-height: 300px;
-  overflow: visible;        
-    padding-top: 2rem;      
-    margin-top: 0;
+  min-height: 300px; /* ajusta segons la mida que vulguis */
 }
 
 #nosaltres .parallax-image {
@@ -992,12 +985,6 @@ footer .nom {
   }
 }
 
-#galeria {
-    position: relative !important;
-    z-index: 1;
-    margin-bottom: 2rem;
-}
-
 /* Ajust més compacte per pantalles molt petites */
 @media (max-width: 575.98px) {
   header#inici {
@@ -1040,27 +1027,4 @@ footer .nom {
 :focus {
     outline: 3px solid #D1DBA1; /* color visible */
     outline-offset: 2px;
-}
-
-/* === PARALLAX IMATGES CENTRADES I SENSE TALLAR === */
-#nosaltres .image-grid {
-    position: relative;
-    height: 700px;           /* Dona espai per al moviment */
-    overflow: visible;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#nosaltres .parallax-image {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80%;
-    max-width: 500px;
-    height: auto;
-    opacity: 0;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
