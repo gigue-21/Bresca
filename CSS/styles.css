@@ -1,11 +1,9 @@
-/* Importar tipografia personalitzada per H1 */
+/* Tipografia personalitzada per H1 */
 @font-face {
     font-family: 'CustomFont';
     src: url('./qrada/Qrada.otf') format('opentype');
 }
 
-
-/* Assegurar que tot el viewport tingui el fons #F6F6EE */
 html, body {
     background-color: #F6F6EE !important;
     color: black;
@@ -220,7 +218,6 @@ nav.navbar.sticky-top {
     }
 }
 
-/* Galeria: hover en imatges - use box-shadow (no layout shift) + smooth zoom */
 .figure img {
     transition: transform 0.45s cubic-bezier(.2,.95,.2,1),
                 box-shadow 0.35s ease,
@@ -229,7 +226,6 @@ nav.navbar.sticky-top {
     will-change: transform, box-shadow;
 }
 
-/* On hover: subtle scale and a green glow that doesn't change layout */
 .figure img:hover {
     transform: scale(1.03);
     box-shadow: 0 0 0 3px #D1DBA1;
@@ -319,7 +315,6 @@ a {
     text-align: justify !important;
 }
 
-/* Ajust opcional per més espai entre columnes si gx-5 no és suficient */
 @media (min-width: 992px) { 
     #nosaltres .row.gx-5 {
         --bs-gutter-x: 3rem; 
@@ -404,12 +399,10 @@ a {
     }
 }
 
-/* Add some spacing between form elements */
 #forumForm .col-12 {
     margin-bottom: 1.5rem;
 }
 
-/* Assegurar que el text justificat funcioni */
 .text-justify {
     text-align: justify !important;
 }
@@ -474,7 +467,7 @@ a {
 
 .forum-card {
     position: relative;
-    width: 300px; /* abans 320px -> reduït 20px */
+    width: 300px;
     height: 260px;
     padding: 1.5rem;
     background: #ffffff;
@@ -734,7 +727,6 @@ footer .nom {
     position: relative;
   }
 
-  /* forçar marge inferior del contenidor del wheel perquè no empanyi el flux */
   .forum-wheel-container {
     margin-bottom: 4rem;    
     min-height: 320px;     
@@ -891,7 +883,6 @@ footer .nom {
     padding-top: 0.9rem;
   }
 }
-
 /* Fi overrides */
 
 /* Reduir espai entre el botó de publicar i el footer en mòbil/tablet */

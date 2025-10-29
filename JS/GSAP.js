@@ -3,7 +3,6 @@
 gsap.registerPlugin(ScrollTrigger);
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Verificar GSAP i ScrollTrigger
     if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
         console.error('GSAP o ScrollTrigger no estan carregats. Verifica les llibreries al <body>.');
         return;
@@ -16,7 +15,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (images.length === 0) {
         console.error('No s\'han trobat imatges amb la classe .parallax-image');
     } else {
-        // guardar la posició original de cada imatge per poder restaurar-la si cal
         const originalPlace = new Map();
         images.forEach(img => {
             originalPlace.set(img, { parent: img.parentElement, next: img.nextSibling });
@@ -26,7 +24,6 @@ document.addEventListener('DOMContentLoaded', function() {
             images.forEach(img => {
                 const info = originalPlace.get(img);
                 if (info && info.parent) {
-                    // si l'element ja no està al seu contenidor original, tornar-lo
                     if (!info.parent.contains(img)) {
                         if (info.next && info.next.parentNode === info.parent) {
                             info.parent.insertBefore(img, info.next);
@@ -41,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     img.style.width = '';
                     img.style.height = '';
                     img.style.zIndex = '';
-                    // restaurar el contenidor (si s'havia amagat)
+                    // restaurar el contenidor
                     info.parent.style.display = '';
                     // restaurar possibles propietats que hem tocat
                     info.parent.style.minHeight = '';
@@ -77,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
 
-            // Amagar la columna d'imatges (reduirà l'espai vertical)
+            // Amagar la columna d'imatges
             const imageColumn = document.querySelector('#nosaltres .row > .col-12.col-lg-6:last-child');
             if (imageColumn) {
                 imageColumn.style.display = 'none';
@@ -108,15 +105,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     targetImg.style.width = '100%';
                     targetImg.style.height = 'auto';
                     targetImg.style.zIndex = '1';
-                    targetImg.style.marginBottom = '0';                // eliminar espai sota la imatge
-                    textColumn.style.marginBottom = '0';               // eliminar marge inferior de la columna de text
+                    targetImg.style.marginBottom = '0';                
+                    textColumn.style.marginBottom = '0';               
 
                     // reduir padding inferior de la secció i padding superior del fòrum
                     nosaltresSection.style.paddingBottom = '0.5rem';
                     const forum = document.getElementById('forum');
                     if (forum) forum.style.paddingTop = '0.5rem';
                 } else if (nosaltresSection) {
-                    // fallback
                     nosaltresSection.appendChild(targetImg);
                     targetImg.style.display = 'block';
                     targetImg.style.opacity = '1';
@@ -206,7 +202,6 @@ document.addEventListener('DOMContentLoaded', function() {
             setMobileNosaltres();
         }
 
-        // Quan es canviï la mida creuant el llindar, re-carregar per re-inicialitzar correcte (simplifica el reset)
         let lastIsDesktop = window.innerWidth > 991;
         window.addEventListener('resize', () => {
             const nowIsDesktop = window.innerWidth > 991;
