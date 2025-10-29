@@ -26,7 +26,6 @@ document.addEventListener('DOMContentLoaded', function() {
             images.forEach(img => {
                 const info = originalPlace.get(img);
                 if (info && info.parent) {
-                    // si l'element ja no està al seu contenidor original, tornar-lo
                     if (!info.parent.contains(img)) {
                         if (info.next && info.next.parentNode === info.parent) {
                             info.parent.insertBefore(img, info.next);
@@ -34,22 +33,18 @@ document.addEventListener('DOMContentLoaded', function() {
                             info.parent.appendChild(img);
                         }
                     }
-                    // netejar estils inline aplicats per la versió mòbil
                     img.style.display = '';
                     img.style.opacity = '';
                     img.style.position = '';
                     img.style.width = '';
                     img.style.height = '';
                     img.style.zIndex = '';
-                    // restaurar el contenidor (si s'havia amagat)
                     info.parent.style.display = '';
-                    // restaurar possibles propietats que hem tocat
                     info.parent.style.minHeight = '';
                     info.parent.style.padding = '';
                 }
             });
 
-            // restaurar columna d'imatges i forum si existeixen
             const imageColumn = document.querySelector('#nosaltres .row > .col-12.col-lg-6:last-child');
             if (imageColumn) {
                 imageColumn.style.display = '';
@@ -65,10 +60,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         function setMobileNosaltres() {
-            // Cerca case-insensitive de Nosaltres_4
             const targetImg = Array.from(images).find(img => img.src && img.src.toLowerCase().includes('nosaltres_4'));
 
-            // Amagar tots els contenidors d'imatge per defecte
             images.forEach(img => {
                 if (img.parentElement) {
                     img.parentElement.style.display = 'none';
@@ -77,7 +70,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
 
-            // Amagar la columna d'imatges (reduirà l'espai vertical)
             const imageColumn = document.querySelector('#nosaltres .row > .col-12.col-lg-6:last-child');
             if (imageColumn) {
                 imageColumn.style.display = 'none';
@@ -86,13 +78,11 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             if (targetImg) {
-                // Assegurar que no hi hagi animacions pendents
                 gsap.killTweensOf(targetImg);
                 if (typeof ScrollTrigger !== 'undefined' && ScrollTrigger.getAll) {
                     ScrollTrigger.getAll().forEach(t => t.kill());
                 }
 
-                // Mostrar només la imatge objectiu
                 const textColumn = document.querySelector('#nosaltres .row > .col-12.col-lg-6:first-child');
                 if (textColumn) {
                     if (targetImg.parentElement && targetImg.parentElement !== textColumn) {
@@ -101,22 +91,19 @@ document.addEventListener('DOMContentLoaded', function() {
                         textColumn.appendChild(targetImg);
                     }
 
-                    // Estils mòbil per eliminar espais sobrants
                     targetImg.style.display = 'block';
                     targetImg.style.opacity = '1';
                     targetImg.style.position = 'static';
                     targetImg.style.width = '100%';
                     targetImg.style.height = 'auto';
                     targetImg.style.zIndex = '1';
-                    targetImg.style.marginBottom = '0';                // eliminar espai sota la imatge
-                    textColumn.style.marginBottom = '0';               // eliminar marge inferior de la columna de text
+                    targetImg.style.marginBottom = '0';
+                    textColumn.style.marginBottom = '0';
 
-                    // reduir padding inferior de la secció i padding superior del fòrum
                     nosaltresSection.style.paddingBottom = '0.5rem';
                     const forum = document.getElementById('forum');
                     if (forum) forum.style.paddingTop = '0.5rem';
                 } else if (nosaltresSection) {
-                    // fallback
                     nosaltresSection.appendChild(targetImg);
                     targetImg.style.display = 'block';
                     targetImg.style.opacity = '1';
@@ -130,101 +117,53 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-        // Si es carrega en desktop, mantenir l'animació existent; si no, aplicar comportament mòbil.
+        // === DESKTOP: ANIMACIÓ PARALLAX PERFECTA ===
         if (window.innerWidth > 991) {
-            // Restaurar la posició de les imatges abans de configurar l'animació desktop
             restoreImagesToOriginal();
 
-            // Desktop: animació parallax amb GSAP
             const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: '#nosaltres',
-                start: 'top top',
-                end: '+=100%',
-                pin: true,
-                scrub: 0.5,
-                markers: false,
-                anticipatePin: 1,
-                toggleActions: "play none none reverse",
-                invalidateOnRefresh: true,
-                pinReparent: true,
-                onLeaveBack: () => {
-                // Força un refresh complet quan tornes enrere
-                ScrollTrigger.refresh();
+                scrollTrigger: {
+                    trigger: '#nosaltres',
+                    start: 'top top',
+                    end: '+=150%',           // Menys espai blanc
+                    pin: true,
+                    scrub: 1,                // Més suau
+                    markers: false,
+                    anticipatePin: 1,
+                    toggleActions: "play none none reverse",
+                    invalidateOnRefresh: true,
+                    pinReparent: true,
+                    onLeaveBack: () => ScrollTrigger.refresh()
                 }
-            }
             });
 
-            gsap.set('.image_cont', { opacity: 0 });
-
-            images.forEach((image, index) => {
-                const container = image.parentElement;
-                gsap.set(container, { 
-                    opacity: index === 0 ? 1 : 0,
-                    zIndex: images.length - index
-                });
-            });
-
+            // === NOU: ANIMACIÓ AMB yPercent + CENTRE PERFECTE ===
             const duration = 7;
+
             images.forEach((image, index) => {
-                const container = image.parentElement;
-                const nextIndex = (index + 1) % images.length;
-                const nextContainer = images[nextIndex]?.parentElement;
-
-                if (index < images.length - 1) {
-                    tl.to(container, {
-                        opacity: 0,
-                        duration: duration/2,
-                        ease: "power1.inOut"
-                    })
-                    .to(nextContainer, {
-                        opacity: 1,
-                        duration: duration/2,
-                        ease: "power1.inOut"
-                    }, "-=" + duration/2);
-
-                    tl.fromTo(image, 
-                        { y: 0 },
-                        { y: -15, duration: duration, ease: "none" }, 
-                        "-=" + duration
-                    );
-                }
+                tl.fromTo(image, 
+                    { yPercent: 20, opacity: 0 },           // Comença avall i invisible
+                    { yPercent: -20, opacity: 1, duration: duration, ease: "none" }, // Mou cap amunt
+                    "-=" + duration
+                );
             });
 
-            // Animació d'entrada suau per imatges individuals
-            images.forEach(image => {
-                gsap.from(image, {
-                    scrollTrigger: {
-                        trigger: image,
-                        start: "top 80%",
-                        end: "bottom 50%",
-                        toggleActions: "play none none reverse",
-                        markers: false
-                    },
-                    opacity: 0,
-                    y: 40,
-                    duration: 0.8,
-                    ease: "power2.out"
-                });
-            });
         } else {
-            // Mobile/tablet: només mostrar la imatge nosaltres_4, sense animacions
             setMobileNosaltres();
         }
 
-        // Quan es canviï la mida creuant el llindar, re-carregar per re-inicialitzar correcte (simplifica el reset)
+        // === RESIZE: RECARREGA PER EVITAR BUGS ===
         let lastIsDesktop = window.innerWidth > 991;
         window.addEventListener('resize', () => {
             const nowIsDesktop = window.innerWidth > 991;
             if (nowIsDesktop !== lastIsDesktop) {
                 lastIsDesktop = nowIsDesktop;
-                // recarregar la pàgina per assegurar que GSAP i la disposició tornen a l'estat esperat
                 location.reload();
             }
         });
     }
 
-    // ANIMACIÓ D'ENTRADA TARGETES DEL FÒRUM
+    // === RESTE DEL CÒDI (FÒRUM, CAPÇALERA, ETC.) ===
     gsap.from("#forum .carousel-item .card", {
         scrollTrigger: {
             trigger: "#forum",
@@ -238,7 +177,6 @@ document.addEventListener('DOMContentLoaded', function() {
         ease: "power2.out"
     });
 
-    // SIMULACIÓ ENVIAMENT FORMULARI FÒRUM
     const form = document.getElementById('forumForm');
     if (form) {
         form.addEventListener('submit', function(e) {
@@ -254,7 +192,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // FÒRUM: Carrusel rotatiu amb eix central fix
     const wheel = document.querySelector('.forum-wheel');
     const cards = Array.from(document.querySelectorAll('.forum-card'));
     const totalCards = cards.length;
@@ -263,12 +200,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const rotationAngle = 120;
 
     function setupCarousel() {
-        gsap.set(wheel, {
-            position: 'relative',
-            left: '50%',
-            xPercent: -50
-        });
-
+        gsap.set(wheel, { position: 'relative', left: '50%', xPercent: -50 });
         cards.forEach((card, index) => {
             gsap.set(card, {
                 position: 'absolute',
@@ -279,7 +211,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 transformOrigin: 'center center'
             });
         });
-
         updateCarousel(true);
     }
 
@@ -292,26 +223,13 @@ document.addEventListener('DOMContentLoaded', function() {
             let zIndex = 1;
 
             if (offset === 0) {
-                scale = 1.1;
-                zIndex = 3;
-                card.classList.add('active');
-                card.classList.remove('left', 'right');
+                scale = 1.1; zIndex = 3; card.classList.add('active'); card.classList.remove('left', 'right');
             } else if (offset === 1 || offset === -2) {
-                scale = 0.85;
-                opacity = 0.6;
-                zIndex = 2;
-                card.classList.add('right');
-                card.classList.remove('active', 'left');
+                scale = 0.85; opacity = 0.6; zIndex = 2; card.classList.add('right'); card.classList.remove('active', 'left');
             } else if (offset === -1 || offset === 2) {
-                scale = 0.85;
-                opacity = 0.6;
-                zIndex = 2;
-                card.classList.add('left');
-                card.classList.remove('active', 'right');
+                scale = 0.85; opacity = 0.6; zIndex = 2; card.classList.add('left'); card.classList.remove('active', 'right');
             } else {
-                opacity = 0;
-                zIndex = 1;
-                card.classList.remove('active', 'left', 'right');
+                opacity = 0; zIndex = 1; card.classList.remove('active', 'left', 'right');
             }
 
             const radian = (angle * Math.PI) / 180;
@@ -344,10 +262,7 @@ document.addEventListener('DOMContentLoaded', function() {
         setupCarousel(true);
 
         gsap.from(cards, {
-            scrollTrigger: {
-                trigger: '#forum',
-                start: 'top 80%'
-            },
+            scrollTrigger: { trigger: '#forum', start: 'top 80%' },
             opacity: 0,
             duration: 0.6,
             stagger: 0.08,
@@ -355,7 +270,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // ANIMACIÓ LLETRES CAPÇALERA
     const letters = document.querySelectorAll('.bresca-container .letter');
     if (letters.length > 0) {
         gsap.timeline({
@@ -375,7 +289,6 @@ document.addEventListener('DOMContentLoaded', function() {
         );
     }
 
-    // OCULTAR NAVBAR FORA DE LA CAPÇALERA
     const navbar = document.getElementById('main-navbar');
     const header = document.getElementById('inici');
     if (navbar && header) {
@@ -387,16 +300,14 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 document.querySelectorAll('[data-bs-toggle="modal"]').forEach(img => {
-  img.addEventListener('keydown', e => {
-    if (e.key === 'Enter') {
-      img.click();
-    }
-  });
-      // Refresca GSAP quan tot està carregat (evita bugs de layout)
-    window.addEventListener('load', () => {
-        ScrollTrigger.refresh(true);
+    img.addEventListener('keydown', e => {
+        if (e.key === 'Enter') {
+            img.click();
+        }
     });
 });
 
-
-
+// Refresca GSAP quan tot està carregat
+window.addEventListener('load', () => {
+    ScrollTrigger.refresh(true);
+});

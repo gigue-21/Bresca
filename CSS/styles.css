@@ -1041,3 +1041,26 @@ footer .nom {
     outline: 3px solid #D1DBA1; /* color visible */
     outline-offset: 2px;
 }
+
+/* === PARALLAX IMATGES CENTRADES I SENSE TALLAR === */
+#nosaltres .image-grid {
+    position: relative;
+    height: 700px;           /* Dona espai per al moviment */
+    overflow: visible;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#nosaltres .parallax-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 500px;
+    height: auto;
+    opacity: 0;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
