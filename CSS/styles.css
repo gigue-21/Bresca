@@ -332,8 +332,9 @@ a {
 .image-grid {
     position: relative;
     width: 100%;
-    height: 600px; /* Alçada per a l'efecte */
-    overflow: hidden;
+    height: auto;           /* Permet que s'adapti al contingut */
+    min-height: 500px;      /* Manté una alçada mínima */
+    overflow: visible !important;  /* Permet que les imatges es vegin completes */
 }
 
 .image_cont {
@@ -710,9 +711,9 @@ footer .nom {
 #nosaltres {
   position: relative;
   min-height: 300px;
-  overflow: hidden;        
-    padding-top: 100px;      
-    margin-top: 3rem;
+  overflow: visible;        
+    padding-top: 2rem;      
+    margin-top: 0;
 }
 
 #nosaltres .parallax-image {
@@ -994,6 +995,7 @@ footer .nom {
 #galeria {
     position: relative !important;
     z-index: 1;
+    margin-bottom: 2rem;
 }
 
 /* Ajust més compacte per pantalles molt petites */

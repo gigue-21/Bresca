@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', function() {
             scrollTrigger: {
                 trigger: '#nosaltres',
                 start: 'top top',
-                end: '+=200%',
+                end: '+=100%',
                 pin: true,
                 scrub: 0.5,
                 markers: false,
@@ -185,7 +185,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     tl.fromTo(image, 
                         { y: 0 },
-                        { y: -30, duration: duration, ease: "none" }, 
+                        { y: -15, duration: duration, ease: "none" }, 
                         "-=" + duration
                     );
                 }
