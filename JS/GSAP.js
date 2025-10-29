@@ -140,13 +140,18 @@ document.addEventListener('DOMContentLoaded', function() {
             scrollTrigger: {
                 trigger: '#nosaltres',
                 start: 'top top',
-                end: '+=200%',  // Canviat de 400% a 200%
+                end: '+=200%',
                 pin: true,
                 scrub: 0.5,
                 markers: false,
                 anticipatePin: 1,
                 toggleActions: "play none none reverse",
-                invalidateOnRefresh: true  // Afegeix aquesta línia
+                invalidateOnRefresh: true,
+                pinReparent: true,
+                onLeaveBack: () => {
+                // Força un refresh complet quan tornes enrere
+                ScrollTrigger.refresh();
+                }
             }
             });
 
