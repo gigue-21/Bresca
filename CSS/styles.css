@@ -16,7 +16,7 @@ html, body {
 
 /* Ajustar el padding de les seccions per la barra de navegació fixa */
 section {
-    padding-top: 60px; /* Espai base per totes les seccions */
+    padding-top: 60px;
     scroll-margin-top: 60px;
     margin-bottom: 2rem;
     padding: 1rem 0.5rem;
@@ -34,18 +34,18 @@ section:last-of-type {
 
 /* Ajust específic per la secció de galeria */
 section#galeria {
-    padding-top: 80px; /* Més espai específicament per la galeria */
+    padding-top: 80px; 
     position: relative;
-    margin-top: 40px; /* Espai addicional per separar de la secció anterior */
+    margin-top: 40px; 
 }
 
 @media (max-width: 991.98px) {
     section#galeria {
-        padding-top: 30px;   /* Menys espai a dalt */
-        margin-top: 10px;    /* Menys separació amb la secció anterior */
+        padding-top: 30px;   
+        margin-top: 10px;   
     }
     section#galeria h2 {
-        margin-bottom: 1rem; /* Menys espai sota el títol */
+        margin-bottom: 1rem; 
         padding-top: 0.5rem;
     }
 }
@@ -70,25 +70,25 @@ header, nav, section, .container, .container-fluid, .row {
 /* Header: alinear logotip i títol */
 header#inici {
     background-color: #F6F6EE !important;
-    padding: 1rem 0; /* Ajustar padding per consistència */
+    padding: 1rem 0; 
     padding-left: 0 !important;
     margin-left: 0 !important;
 }
 
 header#inici .container {
     display: flex;
-    align-items: center; /* Alinear verticalment */
-    justify-content: space-between; /* Logotip a l'esquerra, h1 centrat */
-    flex-wrap: wrap; /* Permet ajustar-se en pantalles petites */
-    padding-left: 0 !important; /* Elimina el padding esquerre */
+    align-items: center; 
+    justify-content: space-between; 
+    flex-wrap: wrap; 
+    padding-left: 0 !important; 
     
 }
 
 header#inici h1 {
     font-family: 'CustomFont', sans-serif;
     color: #7A363C;
-    margin: 0 auto; /* Centrar el h1 horitzontalment */
-    flex: 1; /* Permet que el h1 ocupi l'espai central */
+    margin: 0 auto;
+    flex: 1; 
     text-align: center;
 }
 
@@ -107,8 +107,8 @@ header#inici h1 {
 .logo {
     width: 40px;
     height: auto;
-    margin-left: 0 !important;   /* Elimina qualsevol marge esquerre */
-    margin-right: 0.5rem;  /* Opcional: afegeix espai a la dreta si cal */
+    margin-left: 0 !important;   
+    margin-right: 0.5rem; 
     display: block;
 }
 @media (min-width: 576px) {
@@ -155,7 +155,7 @@ nav.navbar.sticky-top {
     bottom: 0;
     z-index: 2;
     padding-left: 1rem;
-    padding-bottom: 1.2rem; /* Augmentat per igualar el marge esquerre */
+    padding-bottom: 1.2rem;
     display: flex;
     align-items: flex-end;
 }
@@ -192,13 +192,13 @@ nav.navbar.sticky-top {
 
 .letter {
     display: inline-block;
-    font-size: 4rem; /* Punt mig entre 6rem (abans) i 12rem (ara) */
+    font-size: 4rem; 
     font-family: 'CustomFont', sans-serif;
     font-weight: bold;
     color: #7A363C;
     opacity: 0;
     transform: translateY(50px);
-    margin: 0 0.7rem 0 0; /* Marge dret igual al marge esquerre del contenidor */
+    margin: 0 0.7rem 0 0; 
     line-height: 1;
 }
 
@@ -320,17 +320,16 @@ a {
 }
 
 /* Ajust opcional per més espai entre columnes si gx-5 no és suficient */
-@media (min-width: 992px) { /* Només en pantalles grans (lg i superiors) */
+@media (min-width: 992px) { 
     #nosaltres .row.gx-5 {
-        --bs-gutter-x: 3rem; /* Augmenta l'espai a ~48px; pots canviar a 4rem, 5rem, etc. */
+        --bs-gutter-x: 3rem; 
     }
 }
 /* Estils per l'efecte parallax */
 .image-grid {
     position: relative;
     width: 100%;
-    height: 600px; /* Alçada per a l'efecte */
-    overflow: hidden;
+    height: 600px; 
 }
 
 .image_cont {
@@ -339,15 +338,15 @@ a {
     left: 0;
     width: 100%;
     height: 100%;
-    opacity: 0; /* Inicialment invisibles */
-    z-index: 1; /* Assegura superposició correcta */
+    opacity: 0; 
+    z-index: 1; 
 }
 
 .parallax-image {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Manté la proporció */
-    border-radius: 0.25rem; /* Coherent amb el teu disseny */
+    object-fit: cover; 
+    border-radius: 0.25rem; 
 }
 
 /* Estils del Fòrum */
@@ -425,10 +424,10 @@ a {
 /* Ajustos responsius per pantalles petites */
 @media (max-width: 767px) {
     .image-grid {
-        height: 400px; /* Alçada reduïda per a mòbils */
+        height: 400px; 
     }
     .spacer {
-        height: 100vh; /* Ajustat per a mòbils */
+        height: 100vh;
     }
 }
 
@@ -454,7 +453,7 @@ a {
     color: #7A363C;
 }
 
-/* === FÒRUM: Carrusel rotatiu amb eix central fix === */
+/* Carrusel rotatiu amb eix central fix */
 .forum-wheel-container {
     position: relative;
     width: 100%;
@@ -490,22 +489,18 @@ a {
     justify-content: space-between;
 }
 
-/* Note: transforms for position/scale are handled by GSAP to avoid CSS/JS conflicts */
 .forum-card.active {
-    /* GSAP will set scale/translate */
     opacity: 1;
     box-shadow: 0 8px 30px rgba(0,0,0,0.15);
     z-index: 10;
 }
 
 .forum-card.left {
-    /* GSAP will set scale/translate */
     opacity: 0.6;
     z-index: 5;
 }
 
 .forum-card.right {
-    /* GSAP will set scale/translate */
     opacity: 0.6;
     z-index: 5;
 }
@@ -538,7 +533,6 @@ a {
     opacity: 0.8;
 }
 
-/* Keep title static to avoid vertical shift during animations */
 .forum-card h5 { transform: none; }
 
 /* Responsivitat */
@@ -547,7 +541,7 @@ a {
         height: 350px;
     }
     .forum-card {
-        width: 220px; /* abans 240px -> reduït 20px */
+        width: 220px; 
         height: 240px;
     }
     .forum-card.left {
@@ -563,7 +557,7 @@ a {
         height: 300px;
     }
     .forum-card {
-        width: 200px; /* abans 220px -> reduït 20px */
+        width: 200px;
         height: 220px;
         padding: 1.25rem;
     }
@@ -580,14 +574,12 @@ a {
 
 /* Millora l'altura de les targetes del fòrum en pantalles petites/mitjanes */
 @media (max-width: 991px) {
-    /* donar una alçada mínima al contenidor del wheel per evitar gaps visuals */
     #forum .forum-wheel {
         min-height: 320px;
         align-items: center;
         justify-content: center;
     }
 
-    /* fer les cartes més altes i amb padding perquè el text no s'escapi */
     #forum .forum-card {
         min-height: 220px;
         padding: 1.25rem;
@@ -597,9 +589,8 @@ a {
         margin-right: auto;
     }
 
-    /* si el layout usa transformacions, assegurar que el flux vertical no crea gaps grans */
     #forum {
-        padding-top: 0.75rem; /* ajustar si cal */
+        padding-top: 0.75rem;
     }
 }
 
@@ -670,13 +661,13 @@ footer .nom {
         margin-left: auto;
         margin-right: auto;
         display: block;
-        background-color: #7A363C !important; /* Rectangle plegat */
+        background-color: #7A363C !important; 
         border: none;
         box-shadow: none;
         transition: background-color 0.3s;
     }
     .navbar-toggler[aria-expanded="true"] {
-        background-color: #D1DBA1 !important; /* Rectangle desplegat */
+        background-color: #D1DBA1 !important;
     }
     .navbar-toggler:focus {
         box-shadow: none !important;
@@ -697,7 +688,7 @@ footer .nom {
         display: block;
         height: 3px;
         width: 24px;
-        background: #F6F6EE; /* Línies sempre #F6F6EE */
+        background: #F6F6EE; 
         margin: 4px 0;
         border-radius: 2px;
         transition: 0.3s;
@@ -706,7 +697,7 @@ footer .nom {
 
 #nosaltres {
   position: relative;
-  min-height: 300px; /* ajusta segons la mida que vulguis */
+  min-height: 300px;
 }
 
 #nosaltres .parallax-image {
@@ -720,7 +711,7 @@ footer .nom {
 @media (max-width: 991.98px) {
   #nosaltres {
     position: relative;
-    min-height: 300px; /* o l'alçada que vulguis */
+    min-height: 300px; 
     background: none;
   }
   #nosaltres .parallax-image {
@@ -737,52 +728,44 @@ footer .nom {
 
 /* Ajustos específics per mòbil/tablet per evitar que el formulari quedi tallat */
 @media (max-width: 991.98px) {
-  /* més espai sota el carrusel i per a la secció del fòrum */
   #forum {
     padding-top: 1rem;
-    padding-bottom: 4.5rem; /* augmentat per assegurar separació */
+    padding-bottom: 4.5rem;
     position: relative;
   }
 
   /* forçar marge inferior del contenidor del wheel perquè no empanyi el flux */
   .forum-wheel-container {
-    margin-bottom: 4rem;    /* augmentat per evitar superposició */
-    min-height: 320px;      /* garantir altura mínima visible */
+    margin-bottom: 4rem;    
+    min-height: 320px;     
     position: relative;
     z-index: 0;
   }
 
-  /* assegurar que el formulari tingui una separació superior i estigui per sobre en stacking */
   #forumForm {
-    margin-top: 2rem;       /* empenta addicional per baixar el formulari */
+    margin-top: 2rem;      
     position: relative;
     z-index: 1;
   }
 
-  /* si cal, afegir un petit padding inferior al wheel per espai extra */
   #forum .forum-wheel {
     padding-bottom: 1rem;
   }
 }
 
-/* -----------------------------------------
-   Ajustos: fer les targetes del fòrum més altes
-   i evitar superposicions amb el formulari (mòbil/tablet)
-   ----------------------------------------- */
 @media (max-width: 991.98px) {
-  /* augmentar alçada perquè la targeta s'estiri i el text no s'escapi */
+  
   .forum-wheel-container {
-    height: 480px;      /* més espai vertical visible */
+    height: 480px;     
     margin-bottom: 2.5rem;
-    z-index: 1;         /* posar el wheel per sobre del form */
+    z-index: 1;         
     position: relative;
   }
-
-  /* fer les targetes més altes i permissives (auto height amb min) */
+  
   .forum-card {
     width: 92%;
-    max-width: 340px; /* abans 360px -> reduït 20px */
-    min-height: 340px;  /* augmentat per acomodar més text i el nom */
+    max-width: 340px;
+    min-height: 340px; 
     height: auto;
     padding: 1.5rem 1.75rem;
     margin-left: auto;
@@ -790,7 +773,6 @@ footer .nom {
     box-sizing: border-box;
   }
 
-  /* Empentar el formulari cap avall i garantir stacking correcte */
   #forum {
     padding-top: 1rem;
     padding-bottom: 5rem;
@@ -799,21 +781,21 @@ footer .nom {
   #forumForm {
     margin-top: 2.5rem;
     position: relative;
-    z-index: 0; /* assegurar que el form no sobreposi les targetes */
+    z-index: 0;
   }
 }
 
 @media (max-width: 575px) {
   .forum-wheel-container {
-    height: 520px;      /* encara més espai per pantalles molt petites */
+    height: 520px;      
     margin-bottom: 2rem;
   }
 
   .forum-card {
-    min-height: 360px;  /* abans 380px -> reduït lleugerament si cal */
+    min-height: 360px; 
     padding: 1.25rem 1.25rem;
     width: 92%;
-    max-width: 300px; /* abans 320px -> reduït 20px */
+    max-width: 300px;
   }
 
   #forumForm {
@@ -821,10 +803,9 @@ footer .nom {
   }
 }
 
-/* Overrides: reduir encara més mides del fòrum en mòbil/tablet */
 @media (max-width: 991.98px) {
   .forum-wheel-container {
-    height: 420px !important;      /* abans 480px */
+    height: 420px !important;      
     margin-bottom: 1.5rem !important;
   }
 
@@ -834,8 +815,8 @@ footer .nom {
 
   .forum-card {
     width: 90% !important;
-    max-width: 320px !important;   /* abans 340px */
-    min-height: 300px !important;  /* abans 340px */
+    max-width: 320px !important;   
+    min-height: 300px !important;  
     padding: 1.25rem 1.5rem !important;
     margin-left: auto !important;
     margin-right: auto !important;
@@ -843,7 +824,7 @@ footer .nom {
   }
 
   #forum {
-    padding-bottom: 3.5rem !important; /* reduït respecte a 5rem */
+    padding-bottom: 3.5rem !important; 
   }
   #forumForm {
     margin-top: 1.8rem !important;
@@ -852,13 +833,13 @@ footer .nom {
 
 @media (max-width: 575px) {
   .forum-wheel-container {
-    height: 440px !important;      /* abans 520px */
+    height: 440px !important;      
     margin-bottom: 1.25rem !important;
   }
 
   .forum-card {
-    max-width: 280px !important;   /* abans 300px */
-    min-height: 320px !important;  /* abans 360px */
+    max-width: 280px !important;   
+    min-height: 320px !important; 
     padding: 1rem 1.1rem !important;
     width: 92% !important;
   }
@@ -868,20 +849,18 @@ footer .nom {
   }
 }
 
-/* Més espai entre icones socials i l'apartat de termes (mòbil / tablet) */
+
 @media (max-width: 991.98px) {
-  /* selector genèric per al contenidor d'icones socials */
   footer .social-icons,
   footer .footer-social,
   footer .social {
     display: flex;
-    gap: 0.9rem;           /* espai entre icones */
-    margin-bottom: 1.25rem;/* separació sota les icones */
+    gap: 0.9rem;           
+    margin-bottom: 1.25rem;
     align-items: center;
     justify-content: flex-start;
   }
 
-  /* si les icones són imatges dins d'enllaços */
   footer .social-icons a img,
   footer .footer-social a img {
     display: inline-block;
@@ -889,12 +868,11 @@ footer .nom {
     margin: 0;
   }
 
-  /* apartat de termes (selector genèric) */
   footer .footer-terms,
   footer .terms,
   footer .legal {
-    padding-top: 1rem;     /* separació des de les icones */
-    border-top: none;      /* opcional: elimina línia si fa superposició visual */
+    padding-top: 1rem;    
+    border-top: none;   
     margin-top: 0.5rem;
   }
 }
@@ -918,12 +896,9 @@ footer .nom {
 
 /* Reduir espai entre el botó de publicar i el footer en mòbil/tablet */
 @media (max-width: 991.98px) {
-  /* menys padding global de la secció fòrum */
   #forum {
     padding-bottom: 1.25rem !important;
   }
-
-  /* treure marge inferior del formulari i de l'última fila de columnes */
   #forumForm {
     margin-bottom: 0 !important;
   }
@@ -931,8 +906,6 @@ footer .nom {
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
   }
-
-  /* assegurar que el botó no afegeix marge extra */
   #forumForm .btn-primary {
     margin-bottom: 0 !important;
   }
@@ -953,7 +926,6 @@ footer .nom {
 
 /* Reduir espais entre capçalera, hamburguesa i títol galeria (mòbil/tablet) */
 @media (max-width: 991.98px) {
-  /* compacte el header */
   header#inici {
     padding-top: 0.35rem !important;
     padding-bottom: 0.35rem !important;
@@ -966,17 +938,13 @@ footer .nom {
     padding-top: 0 !important;
     padding-bottom: 0 !important;
   }
-
-  /* ajustar el botó hamburguesa per reduir espai vertical */
   .navbar-toggler {
     margin-top: 0.15rem !important;
     margin-bottom: 0.15rem !important;
     padding: 0.35rem 0.6rem !important;
   }
-
-  /* reduir espai entre el menu i el títol de la galeria */
   section#galeria {
-    padding-top: 0.5rem !important; /* abans 30px */
+    padding-top: 0.5rem !important;
     margin-top: 4px !important;
   }
   section#galeria h2 {
@@ -1012,19 +980,19 @@ footer .nom {
 /* Ajust per mòbil i tablet: desplaçar logo i títol cap avall */
 @media (max-width: 991.98px) {
     header#inici .container {
-        padding-top: 1.5rem !important; /* Afegeix marge superior al contenidor (logo + h1). Ajusta el valor si cal (ex: 1rem per menys espai). */
-        padding-bottom: 0.5rem !important; /* Opcional: equilibra l'espai inferior per no allargar massa el header. */
+        padding-top: 1.5rem !important; 
+        padding-bottom: 0.5rem !important; 
     }
 }
 
 /* Per pantalles molt petites (ex: mòbils estrets), pots fer un ajust més fi */
 @media (max-width: 575.98px) {
     header#inici .container {
-        padding-top: 1rem !important; /* Menys espai en mòbils petits per evitar que ocupi massa alçada. */
+        padding-top: 1rem !important; 
     }
 }
 
 :focus {
-    outline: 3px solid #D1DBA1; /* color visible */
+    outline: 3px solid #D1DBA1; 
     outline-offset: 2px;
 }
