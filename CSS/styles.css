@@ -987,3 +987,7 @@ footer .nom {
     outline: 3px solid #D1DBA1; 
     outline-offset: 2px;
 }
+
+nav .logo {
+    margin-left: 10px !important;
+}
