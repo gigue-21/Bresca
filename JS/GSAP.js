@@ -8,211 +8,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
 
-    // ANIMACIÓ PARALLAX IMATGES "NOSALTRES"
-    const images = document.querySelectorAll('#nosaltres .parallax-image');
-    const nosaltresSection = document.getElementById('nosaltres');
-
-    if (images.length === 0) {
-        console.error('No s\'han trobat imatges amb la classe .parallax-image');
-    } else {
-        const originalPlace = new Map();
-        images.forEach(img => {
-            originalPlace.set(img, { parent: img.parentElement, next: img.nextSibling });
-        });
-
-        function restoreImagesToOriginal() {
-            images.forEach(img => {
-                const info = originalPlace.get(img);
-                if (info && info.parent) {
-                    if (!info.parent.contains(img)) {
-                        if (info.next && info.next.parentNode === info.parent) {
-                            info.parent.insertBefore(img, info.next);
-                        } else {
-                            info.parent.appendChild(img);
-                        }
-                    }
-                    // netejar estils inline aplicats per la versió mòbil
-                    img.style.display = '';
-                    img.style.opacity = '';
-                    img.style.position = '';
-                    img.style.width = '';
-                    img.style.height = '';
-                    img.style.zIndex = '';
-                    // restaurar el contenidor
-                    info.parent.style.display = '';
-                    // restaurar possibles propietats que hem tocat
-                    info.parent.style.minHeight = '';
-                    info.parent.style.padding = '';
-                }
-            });
-
-            // restaurar columna d'imatges i forum si existeixen
-            const imageColumn = document.querySelector('#nosaltres .row > .col-12.col-lg-6:last-child');
-            if (imageColumn) {
-                imageColumn.style.display = '';
-                imageColumn.style.minHeight = '';
-                imageColumn.style.padding = '';
-            }
-            const textColumn = document.querySelector('#nosaltres .row > .col-12.col-lg-6:first-child');
-            if (textColumn) {
-                textColumn.style.marginBottom = '';
-            }
-            const forum = document.getElementById('forum');
-            if (forum) forum.style.paddingTop = '';
-        }
-
-        function setMobileNosaltres() {
-            // Cerca case-insensitive de Nosaltres_4
-            const targetImg = Array.from(images).find(img => img.src && img.src.toLowerCase().includes('nosaltres_4'));
-
-            // Amagar tots els contenidors d'imatge per defecte
-            images.forEach(img => {
-                if (img.parentElement) {
-                    img.parentElement.style.display = 'none';
-                } else {
-                    img.style.display = 'none';
-                }
-            });
-
-            // Amagar la columna d'imatges
-            const imageColumn = document.querySelector('#nosaltres .row > .col-12.col-lg-6:last-child');
-            if (imageColumn) {
-                imageColumn.style.display = 'none';
-                imageColumn.style.minHeight = '0';
-                imageColumn.style.padding = '0';
-            }
-
-            if (targetImg) {
-                // Assegurar que no hi hagi animacions pendents
-                gsap.killTweensOf(targetImg);
-                if (typeof ScrollTrigger !== 'undefined' && ScrollTrigger.getAll) {
-                    ScrollTrigger.getAll().forEach(t => t.kill());
-                }
-
-                // Mostrar només la imatge objectiu
-                const textColumn = document.querySelector('#nosaltres .row > .col-12.col-lg-6:first-child');
-                if (textColumn) {
-                    if (targetImg.parentElement && targetImg.parentElement !== textColumn) {
-                        textColumn.appendChild(targetImg);
-                    } else if (targetImg.parentElement !== textColumn) {
-                        textColumn.appendChild(targetImg);
-                    }
-
-                    // Estils mòbil per eliminar espais sobrants
-                    targetImg.style.display = 'block';
-                    targetImg.style.opacity = '1';
-                    targetImg.style.position = 'static';
-                    targetImg.style.width = '100%';
-                    targetImg.style.height = 'auto';
-                    targetImg.style.zIndex = '1';
-                    targetImg.style.marginBottom = '0';                
-                    textColumn.style.marginBottom = '0';               
-
-                    // reduir padding inferior de la secció i padding superior del fòrum
-                    nosaltresSection.style.paddingBottom = '0.5rem';
-                    const forum = document.getElementById('forum');
-                    if (forum) forum.style.paddingTop = '0.5rem';
-                } else if (nosaltresSection) {
-                    nosaltresSection.appendChild(targetImg);
-                    targetImg.style.display = 'block';
-                    targetImg.style.opacity = '1';
-                    targetImg.style.position = 'static';
-                    targetImg.style.width = '100%';
-                    targetImg.style.height = 'auto';
-                    targetImg.style.zIndex = '1';
-                }
-            } else {
-                console.warn('No s\'ha trobat l\'imatge "Nosaltres_4" (buscant case-insensitive).');
-            }
-        }
-
-        // Si es carrega en desktop, mantenir l'animació existent; si no, aplicar comportament mòbil.
-        if (window.innerWidth > 991) {
-            // Restaurar la posició de les imatges abans de configurar l'animació desktop
-            restoreImagesToOriginal();
-
-            // Desktop: animació parallax amb GSAP
-            const tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: '#nosaltres',
-                    start: 'top top',
-                    end: '+=400%',
-                    pin: true,
-                    scrub: 0.5,
-                    markers: false,
-                    anticipatePin: 1,
-                    toggleActions: "play none none reverse"
-                }
-            });
-
-            gsap.set('.image_cont', { opacity: 0 });
-
-            images.forEach((image, index) => {
-                const container = image.parentElement;
-                gsap.set(container, { 
-                    opacity: index === 0 ? 1 : 0,
-                    zIndex: images.length - index
-                });
-            });
-
-            const duration = 7;
-            images.forEach((image, index) => {
-                const container = image.parentElement;
-                const nextIndex = (index + 1) % images.length;
-                const nextContainer = images[nextIndex]?.parentElement;
-
-                if (index < images.length - 1) {
-                    tl.to(container, {
-                        opacity: 0,
-                        duration: duration/2,
-                        ease: "power1.inOut"
-                    })
-                    .to(nextContainer, {
-                        opacity: 1,
-                        duration: duration/2,
-                        ease: "power1.inOut"
-                    }, "-=" + duration/2);
-
-                    tl.fromTo(image, 
-                        { y: 0 },
-                        { y: -30, duration: duration, ease: "none" }, 
-                        "-=" + duration
-                    );
-                }
-            });
-
-            // Animació d'entrada suau per imatges individuals
-            images.forEach(image => {
-                gsap.from(image, {
-                    scrollTrigger: {
-                        trigger: image,
-                        start: "top 80%",
-                        end: "bottom 50%",
-                        toggleActions: "play none none reverse",
-                        markers: false
-                    },
-                    opacity: 0,
-                    y: 40,
-                    duration: 0.8,
-                    ease: "power2.out"
-                });
-            });
-        } else {
-            // Mobile/tablet: només mostrar la imatge nosaltres_4, sense animacions
-            setMobileNosaltres();
-        }
-
-        let lastIsDesktop = window.innerWidth > 991;
-        window.addEventListener('resize', () => {
-            const nowIsDesktop = window.innerWidth > 991;
-            if (nowIsDesktop !== lastIsDesktop) {
-                lastIsDesktop = nowIsDesktop;
-                // recarregar la pàgina per assegurar que GSAP i la disposició tornen a l'estat esperat
-                location.reload();
-            }
-        });
-    }
-
     // ANIMACIÓ D'ENTRADA TARGETES DEL FÒRUM
     gsap.from("#forum .carousel-item .card", {
         scrollTrigger: {
@@ -371,6 +166,147 @@ document.addEventListener('DOMContentLoaded', function() {
         document.addEventListener('scroll', function() {
             const headerBottom = header.getBoundingClientRect().bottom;
             navbar.style.display = headerBottom <= 0 ? 'none' : '';
+        });
+    }
+
+    // === 2. ANIMACIÓ PARALLAX IMATGES "NOSALTRES" ===
+    const images = document.querySelectorAll('#nosaltres .parallax-image');
+    const nosaltresSection = document.getElementById('nosaltres');
+
+    if (images.length === 0) {
+        console.error('No s\'han trobat imatges amb la classe .parallax-image');
+    } else {
+        const originalPlace = new Map();
+        images.forEach(img => {
+            originalPlace.set(img, { 
+                parent: img.parentElement, 
+                next: img.nextSibling 
+            });
+        });
+
+        function restoreImagesToOriginal() {
+            console.log('Restauran imatges a posició original...');
+            images.forEach(img => {
+                const info = originalPlace.get(img);
+                if (info && info.parent && !info.parent.contains(img)) {
+                    if (info.next && info.next.parentNode === info.parent) {
+                        info.parent.insertBefore(img, info.next);
+                    } else {
+                        info.parent.appendChild(img);
+                    }
+                }
+                img.style.display = '';
+                img.style.opacity = '';
+                img.style.position = '';
+                img.style.width = '';
+                img.style.height = '';
+                img.style.zIndex = '';
+                img.style.marginBottom = '';
+            });
+
+            document.querySelectorAll('.image_cont').forEach(cont => {
+                cont.style.display = '';
+                cont.style.opacity = '';
+                cont.style.minHeight = '';
+            });
+
+            const imageColumn = document.querySelector('#nosaltres .row > .col-12.col-lg-6:last-child');
+            if (imageColumn) {
+                imageColumn.style.display = '';
+                imageColumn.style.minHeight = '';
+                imageColumn.style.padding = '';
+            }
+        }
+
+        function setMobileNosaltres() {
+            console.log('Mode mòbil: només imatge Nosaltres_4');
+            const targetImg = Array.from(images).find(img => 
+                img.src && img.src.toLowerCase().includes('nosaltres_4')
+            );
+
+            document.querySelectorAll('.image_cont').forEach(cont => {
+                cont.style.display = 'none';
+            });
+
+            const imageColumn = document.querySelector('#nosaltres .row > .col-12.col-lg-6:last-child');
+            if (imageColumn) {
+                imageColumn.style.display = 'none';
+            }
+
+            if (targetImg && targetImg.parentElement) {
+                const textColumn = document.querySelector('#nosaltres .row > .col-12.col-lg-6:first-child');
+                if (textColumn && !textColumn.contains(targetImg)) {
+                    textColumn.appendChild(targetImg);
+                }
+                targetImg.style.display = 'block';
+                targetImg.style.opacity = '1';
+                targetImg.style.width = '100%';
+                targetImg.style.height = 'auto';
+                targetImg.style.position = 'static';
+            }
+        }
+
+        const isDesktop = window.innerWidth > 991;
+
+        if (isDesktop) {
+            console.log('Desktop detectat → Activant parallax');
+            restoreImagesToOriginal();
+            gsap.set('#nosaltres', { clearProps: "all" });
+            ScrollTrigger.refresh();
+
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: '#nosaltres',
+                    start: 'top top',
+                    end: '+=300%',
+                    pin: true,
+                    scrub: 0.5,
+                    pinSpacing: true,
+                    anticipatePin: 1,
+                    onRefresh: () => console.log('ScrollTrigger refrescat'),
+                    markers: false
+                }
+            });
+
+            gsap.set('.image_cont', { opacity: 0 });
+            images.forEach((img, i) => {
+                const cont = img.parentElement;
+                gsap.set(cont, { 
+                    opacity: i === 0 ? 1 : 0,
+                    zIndex: images.length - i
+                });
+            });
+
+            const duration = 7;
+            images.forEach((img, i) => {
+                if (i < images.length - 1) {
+                    const cont = img.parentElement;
+                    const nextCont = images[i + 1].parentElement;
+
+                    tl.to(cont, { opacity: 0, duration: duration/2, ease: "power1.inOut" })
+                      .to(nextCont, { opacity: 1, duration: duration/2, ease: "power1.inOut" }, "-=" + duration/2);
+
+                    tl.fromTo(img, { y: 0 }, { y: -30, duration: duration, ease: "none" }, "-=" + duration);
+                }
+            });
+
+            gsap.from(images, {
+                scrollTrigger: { trigger: '#nosaltres', start: "top 80%" },
+                opacity: 0, y: 40, duration: 0.8, stagger: 0.2, ease: "power2.out"
+            });
+
+        } else {
+            console.log('Mòbil detectat → Mode imatge única');
+            setMobileNosaltres();
+        }
+
+        let lastMode = isDesktop;
+        window.addEventListener('resize', () => {
+            const currentMode = window.innerWidth > 991;
+            if (currentMode !== lastMode) {
+                lastMode = currentMode;
+                location.reload();
+            }
         });
     }
 });
